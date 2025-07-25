@@ -23,6 +23,14 @@ def runNetworks(NumNetworks=2):
 
     return b
 
+def runDifferentReversalPot():
+    params = specs.ODict()
+    params['SYNAPSES'] = ['Hyper','Shunt','Uniform'] 
+    b = Batch(params=params, netParamsFile='src/netParams.py', cfgFile='src/cfg.py')
+    b.method = 'grid'
+
+    return b
+
 # ----------------------------------------------------------------------------------------------
 # Run configurations
 # ----------------------------------------------------------------------------------------------
@@ -37,7 +45,8 @@ def setRunCfg(b, type='mpi_bulletin'):
 # ----------------------------------------------------------------------------------------------
 
 if __name__ == '__main__': 
-    b = runNetworks(NumNetworks=1)
+    # b = runNetworks(NumNetworks=1)
+    b = runDifferentReversalPot()
     b.batchLabel = 'batch_mEC_0'  # Label for the batch
     os.makedirs('./output', exist_ok=True)
     b.saveFolder = './output/'+b.batchLabel

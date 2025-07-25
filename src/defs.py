@@ -82,7 +82,7 @@ def SC_Mittal(cwd, cfg):
 
     cellRule = netParamsAux.importCellParams(label='SC', conds={'cellType': 'SC'},
     fileName=cwd+'/cells/Stochastic_Bifurcations_Mittal_Narayanan/Figure3-6_SCmodel/Additive_Noise/Noise_Osc_july.hoc',
-    cellName='SimpleNeuron', cellInstance = True)
+    cellName='SC', cellInstance = True)
 
     if cfg.OPTODRIVE==True:
         cellRule['secs']['soma']['pointps'] = {}

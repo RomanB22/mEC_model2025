@@ -229,7 +229,7 @@ proc Osc_run(){
 			stim2.std = j//*i// i dont know why i put the multiplicative noise instead of additive
 		
 		
-			print i,j
+			//print i,j
 	
 		sprint(s_osc, "Output/Osc_july/Osc_%d_%f_%f.txt",simulno,i,j)
 		f_osc = new File()
@@ -260,276 +260,276 @@ proc Osc_run(){
 
 proc update_gnafbar() {
 	gmax_NaT	= gnafbar*1e-09
-	print gmax_NaT
+	////print gmax_NaT
 }
 
 proc update_nafmvhalf() {
 	mvhalf_NaT	= nafmvhalf
-	print mvhalf_NaT
+	//print mvhalf_NaT
 }
 
 proc update_nafmslope() {
 	mslope_NaT	= nafmslope
-	print mslope_NaT
+	//print mslope_NaT
 }
 
 proc update_nafmfactor() {
 	mfactor_NaT	= nafmfactor
-	print mfactor_NaT	
+	//print mfactor_NaT	
 }
 
 proc update_nafhvhalf() {
 	hvhalf_NaT	= nafhvhalf
-	print hvhalf_NaT
+	//print hvhalf_NaT
 }
 
 proc update_nafhslope() {
 	hslope_NaT	= nafhslope
-	print hslope_NaT
+	//print hslope_NaT
 }
 
 proc update_nafhfactor() {
 	hfactor_NaT	= nafhfactor
-	print hfactor_NaT
+	//print hfactor_NaT
 }
 
 proc update_gkdrbar() {
 	gmax_KDR	= gkdrbar*1e-09
-	print gmax_KDR
+	//print gmax_KDR
 }
 
 proc update_kdrnvhalf() {
 	nvhalf_KDR	= kdrnvhalf
-	print nvhalf_KDR
+	//print nvhalf_KDR
 }
 
 proc update_kdrnslope() {
 	nslope_KDR	= kdrnslope
-	print nslope_KDR
+	//print nslope_KDR
 }
 
 proc update_kdrnfactor() {
 	nfactor_KDR = kdrnfactor
-	print nfactor_KDR
+	//print nfactor_KDR
 }
 
 proc update_ghcnsbar() {
 	gslowbar_ih	= ghcnsbar*1e-09
-	print gslowbar_ih
+	//print gslowbar_ih
 }
 
 proc update_hcnratio() {
 	gfastbar_ih	= hcnratio*(ghcnsbar*1e-09)
-	print gfastbar_ih
+	//print gfastbar_ih
 }
 
 proc update_hcnmifo() {
 	mifo_ih		= hcnmifo
-	print mifo_ih
+	//print mifo_ih
 }
 
 proc update_hcnmiso() {
 	miso_ih		= hcnmiso
-	print miso_ih
+	//print miso_ih
 }
 
 proc update_hcnmifd() {
 	mifd_ih		= hcnmifd
-	print mifd_ih
+	//print mifd_ih
 }
 
 proc update_hcnmisd() {
 	misd_ih		= hcnmisd
-	print misd_ih
+	//print misd_ih
 }
 
 proc update_hcnffactor() {
 	ffactor_ih	= hcnffactor
-	print ffactor_ih
+	//print ffactor_ih
 }
 
 proc update_hcnsfactor() {
 	sfactor_ih	= hcnsfactor
-	print sfactor_ih
+	//print sfactor_ih
 }
 
 proc update_gnapbar() {
 	gbar_NaP	= gnapbar*1e-09
-	print gbar_NaP
+	//print gbar_NaP
 }
 
 proc update_napmvhalf() {
 	mvhalf_NaP	= napmvhalf
-	print mvhalf_NaP
+	//print mvhalf_NaP
 }
 
 proc update_napmslope() {
 	mslope_NaP	= napmslope
-	print mslope_NaP
+	//print mslope_NaP
 }
 
 proc update_napmfactor() {
 	mfactor_NaP	= napmfactor
-	print mfactor_NaP
+	//print mfactor_NaP
 }
 
 proc update_naphvhalf() {
 	hvhalf_NaP	= naphvhalf
-	print hvhalf_NaP
+	//print hvhalf_NaP
 }
 
 proc update_naphslope() {
 	hslope_NaP	= naphslope
-	print hslope_NaP
+	//print hslope_NaP
 }
 
 proc update_naphfactor() {
 	hfactor_NaP	= naphfactor
-	print hfactor_NaP
+	//print hfactor_NaP
 }
 
 proc update_gkabar() {
 	gmax_KA		= gkabar*1e-09
-	print gmax_KA
+	//print gmax_KA
 }
 
 proc update_kamvhalf() {
 	mvhalf_KA	= kamvhalf
-	print mvhalf_KA
+	//print mvhalf_KA
 }
 
 proc update_kamslope() {
 	mslope_KA	= kamslope
-	print mslope_KA
+	//print mslope_KA
 }
 
 proc update_kamfactor() {
 	mfactor_KA	= kamfactor
-	print mfactor_KA
+	//print mfactor_KA
 }
 
 proc update_kahvhalf() {
 	hvhalf_KA	= kahvhalf
-	print hvhalf_KA 
+	//print hvhalf_KA 
 }
 
 proc update_kahslope() {
 	hslope_KA	= kahslope
-	print hslope_KA
+	//print hslope_KA
 }
 
 proc update_kahfactor() {
 	hfactor_KA	= kahfactor
-	print hfactor_KA
+	//print hfactor_KA
 }
 
 proc update_ghvabar() {
 	gmax_HVA	= ghvabar*1e-09
-	print gmax_HVA
+	//print gmax_HVA
 }
 
 proc update_hvamvhalf() {
 	mvhalf_HVA	= hvamvhalf
-	print mvhalf_HVA
+	//print mvhalf_HVA
 }
 
 proc update_hvamslope() {
 	mslope_HVA	= hvamslope
-	print mslope_HVA
+	//print mslope_HVA
 }
 
 proc update_hvamfactor() {
 	mfactor_HVA	= hvamfactor
-	print mfactor_HVA
+	//print mfactor_HVA
 }
 
 proc update_hvahvhalf() {
 	hvhalf_HVA	= hvahvhalf
-	print hvhalf_HVA
+	//print hvhalf_HVA
 }
 
 proc update_hvahslope() {
 	hslope_HVA	= hvahslope
-	print hslope_HVA
+	//print hslope_HVA
 }
 
 proc update_hvahfactor() {
 	hfactor_HVA	= hvahfactor
-	print hfactor_HVA
+	//print hfactor_HVA
 }
 
 proc update_glvabar() {
 	glvabar_LVA	= glvabar*1e-09
-	print glvabar_LVA
+	//print glvabar_LVA
 }
 
 proc update_lvamvhalf() {
 	mvhalf_LVA	= lvamvhalf
-	print mvhalf_LVA
+	//print mvhalf_LVA
 }
 
 proc update_lvamslope() {
 	mslope_LVA	= lvamslope
-	print mslope_LVA
+	//print mslope_LVA
 }
 
 proc update_lvamfactor() {
 	mfactor_LVA	= lvamfactor
-	print mfactor_LVA
+	//print mfactor_LVA
 }
 
 proc update_lvahvhalf() {
 	hvhalf_LVA	= lvahvhalf
-	print hvhalf_LVA
+	//print hvhalf_LVA
 }
 
 proc update_lvahslope() {
 	hslope_LVA	= lvahslope
-	print hslope_LVA
+	//print hslope_LVA
 }
 
 proc update_lvahfactor() {
 	hfactor_LVA	= lvahfactor
-	print hfactor_LVA
+	//print hfactor_LVA
 }
 
 proc update_gkmbar() {
 	gbar_km		= gkmbar*1e-09
-	print gbar_km
+	//print gbar_km
 }
 proc update_kmvhalfl() {
 	vhalfl_km	= kmvhalfl
-	print vhalfl_km
+	//print vhalfl_km
 }
 
 proc update_kmkl() {
 	kl_km		= kmkl
-	print kl_km
+	//print kl_km
 }
 
 proc update_kmmfactor() {
 	mfactor_km	= kmmfactor
-	print mfactor_km
+	//print mfactor_km
 }
 
 proc update_gskbar() {
 	gbar_skkin = gskbar*1e-09
-	print gbar_skkin
+	//print gbar_skkin
 }
 
 proc update_gpas() {
 	g_pas=1/Rm
-	print g_pas
+	//print g_pas
 }
 
 proc update_tauca() {
 	tauca_cad=tauca
-	print tauca_cad
+	//print tauca_cad
 }
 
 proc update_CM() {
 	cm = CM
-	print cm
+	//print cm
 }
 
 /**************************************************************/
@@ -900,8 +900,7 @@ objref f56, v56
 //	v56 = new Vector()
 //	v56.scanf(f56)
 
-proc Final_run(){ local j
-	 
+proc Final_run(){local j
 		j=$1
 		simulno	 = j
 		open_files()
@@ -1049,6 +1048,4 @@ proc Final_run(){ local j
 		//Osc_run()
 }		
 
-Final_run(24)
-
-		
+Final_run(0)

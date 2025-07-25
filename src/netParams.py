@@ -18,7 +18,7 @@ netParams.defaultThreshold = -10.0
 ###############################################################################
 ## Create and load parameters for the PV network
 ###############################################################################
-gLs, ELs, CapsOrig, ConductWithGapJunct, ReversPotWithGapJunct, CapsMod, gNas, gKv3s, gKv7s, thm1s, thh2s, thn1s, tha1s, SharedParams, syns, delays, gms, synsgj, ggs = Inet.NetworkParams(NumNeurons=cfg.NPV, FactorTau=cfg.FactorTau, FactorKv3=cfg.FactorKv3, FactorKv7=cfg.FactorKv7, GapJunctProb=cfg.GapJunctProb, ChemycalConnProb=cfg.ChemycalConnProb, delaymin=.6, delaymax=1., meangms=0., sigmagms=1.,homogeneous=cfg.HOMOGENEOUS, randomseed = cfg.seeds['brian2'])
+gLs, ELs, CapsOrig, ConductWithGapJunct, ReversPotWithGapJunct, CapsMod, gNas, gKv3s, gKv7s, thm1s, thh2s, thn1s, tha1s, SharedParams, syns, delays, gms, synsgj, ggs = Inet.NetworkParams(NumNeurons=cfg.NPV, FactorTau=cfg.FactorTau, FactorKv3=cfg.FactorKv3, FactorKv7=cfg.FactorKv7, GapJunctProb=cfg.GapJunctProb, ChemycalConnProb=cfg.ChemycalConnProb, delaymin=.6, delaymax=1., meangms=0., sigmagms=1.,homogeneous=cfg.HOMOGENEOUS_PV, randomseed = cfg.seeds['brian2'])
 
 ###############################################################################
 ## Cell types
@@ -26,6 +26,9 @@ gLs, ELs, CapsOrig, ConductWithGapJunct, ReversPotWithGapJunct, CapsMod, gNas, g
 cellParamsPV = defs.PVCell(cfg, gLs, ELs, CapsOrig, ConductWithGapJunct, ReversPotWithGapJunct, CapsMod, gNas, gKv3s, gKv7s, thm1s, thh2s, thn1s, tha1s, SharedParams)
 cellParamsSC = defs.SCell_HH(cfg)
 cellParamsSC_Mittal = defs.SC_Mittal(cwd, cfg)
+
+# print(cellParamsSC_Mittal)
+# quit()
 
 netParams.cellParams = cellParamsPV | cellParamsSC_Mittal if cfg.Mittal else cellParamsPV | cellParamsSC # Combine all dictionaries
 
@@ -55,8 +58,8 @@ if cfg.Clamp==True:
 
 ## Inhibitory synapses FS-> FS
 
-tau_fall=2.
 tau_rise=0.3
+tau_fall=2.
 c_fall = 1/tau_fall
 c_rise = 1/tau_rise
 f = 1/( np.exp(-c_fall*np.log(c_rise/c_fall)/(c_rise-c_fall)) - np.exp(-c_rise*np.log(c_rise/c_fall)/(c_rise-c_fall)) )

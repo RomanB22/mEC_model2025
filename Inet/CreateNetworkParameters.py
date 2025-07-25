@@ -1,8 +1,10 @@
 import numpy as np
 from scipy.stats import truncnorm
 import random 
-from brian2 import NeuronGroup, Synapses, seed, prefs
+from brian2 import NeuronGroup, Synapses, seed, prefs, BrianLogger
 import os
+
+BrianLogger.log_level_error()
 
 # See end of file for Usage
 

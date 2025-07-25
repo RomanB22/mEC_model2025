@@ -1,4 +1,4 @@
-# mEC Working Model
+# mEC Model
  
  This code was written using NetPyNE (Networks with Python and NEURON). For more information about the tool, see [NetPyNE docs](http://doc.netpyne.org/)
 
@@ -29,7 +29,7 @@ nrnivmodl mod
 
 ### Setting up the parameters
 
-In `cfg.py` you can modify all the parameters, variables and conditions for the simulation. For example, you can change the values of the flags to have sinusoidal optogenetic drive, choos the stellate cell model, add gap junction connectivity between the PV cells, change the recorded cells, simulation time, etc.
+In `cfg.py` you can modify all the parameters, variables and conditions for the simulation. For example, you can change the values of the flags to have sinusoidal optogenetic drive, choose the stellate cell model, add gap junction connectivity between the PV cells, change the recorded cells, simulation time, etc.
 
 ## ▶Running Simulations
 
@@ -52,7 +52,7 @@ The function `runNetworks(NumNetworks=X)` will run X number of networks with dif
 ```bash
 params['property'] = [list of values]
 ```
-where that property is any of the ones defined in `cfg.py`. That will create automatically all possible combination of values between all the params (be careful since the number of combinations grows exponentially)
+where that property is any of the ones defined in `cfg.py`. That will create automatically all possible combination of values between all the params (be careful since the number of combinations grows exponentially). See for example the function `runDifferentReversalPot()`
 
 > ⚠️ Note: Batch simulations have not been fully tested yet.
 
@@ -62,9 +62,9 @@ where that property is any of the ones defined in `cfg.py`. That will create aut
 
 ## To-Do List
 
-- [ ] Check that the funtion `SC_Mittal(cwd, cfg)` in `defs.py` is loading a correct cell (should be the number 24, as in the end of `Noise_Osc_july.hoc`)
-- [ ] Once that is checked, we can modify the parameters of the cell for each model in the python code `defs.py`, and we can load all the different models from the .csv file
+- [ ] Check that the function `SC_Mittal(cwd, cfg)` in `defs.py` is loading the correct cell (should be the same number as in the end of `Noise_Osc_july.hoc`)
+- [ ] Once that is checked, we can modify the parameters of the SC for each model in the python code `defs.py`, and we can load all the different models from the .csv file
 - [ ] The next step will be to modify the code to add heterogeneity in the SC population
-- [ ] Check that the temperature for the simulation is correct (in `cfg.hParams = {'celsius': 23, 'v_init': -80}`)
-- [ ] Add isntructions on how to run NEURON with `mpi` to run faster. Ask Chris since it depends on each cluster configuration.
+- [ ] Check that the temperature for the simulation is correct (in `cfg.hParams = {'celsius': 23, 'v_init': -80}`). That shouldn't change anything unless any of the ion channels have a temperature-dependent behavior
+- [ ] Add instructions on how to run NEURON with `mpi` to speed up sims. Ask Chris since it depends on each cluster configuration.
 - [x] Completed Item
