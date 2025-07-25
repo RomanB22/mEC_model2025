@@ -64,9 +64,6 @@ where that property is any of the ones defined in `src/cfg.py`. That will create
 
 ## To-Do List
 
-- [ ] Check that the function `SC_Mittal(cwd, cfg)` in `src/defs.py` is loading the correct cell (should be the same number as in the end of `Noise_Osc_july.hoc`)
-- [ ] Once that is checked, we can modify the parameters of the SC for each model in the python code `src/defs.py`, and we can load all the different models from the .csv file
-- [ ] The next step will be to modify the code to add heterogeneity in the SC population
 - [ ] Check that the temperature for the simulation is correct (`cfg.hParams = {'celsius': 23, 'v_init': -80}` in `src/cfg.py`). That shouldn't change anything unless any of the ion channels have a temperature-dependent behavior
 - [ ] Add instructions on how to run NEURON with `mpi` to speed up sims. Ask Chris since it depends on each cluster configuration.
 - [x] Completed Item
