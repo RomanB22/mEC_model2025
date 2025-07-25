@@ -20,7 +20,7 @@ pip install -r requirements.txt
 
 ## Simulations Setup
 
-Add the root directory to `PYTHONPATH`:
+Add the root directory to `PYTHONPATH`, and compile the mechanisms:
 
 ```bash
 export PYTHONPATH=PYTHONPATH:$PWD
