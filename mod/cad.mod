@@ -42,7 +42,8 @@ NEURON {
 	SUFFIX cad
 	USEION ca READ ica, cai WRITE cai	
         RANGE ca
-	GLOBAL depth,cainf,tauca
+	GLOBAL depth,cainf
+	RANGE tauca
 }
 
 UNITS {

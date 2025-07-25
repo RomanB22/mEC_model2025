@@ -10,6 +10,8 @@ To clone the repository, open a terminal in the directory where you'd like to st
 git clone https://github.com/RomanB22/mEC_model2025.git
 ````
 
+After that, make sure to move to the repo folder using `cd mEC_model2025`.
+
 ## Installation
 
 Install the required Python packages using:

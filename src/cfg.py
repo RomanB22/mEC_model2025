@@ -32,20 +32,23 @@ cfg.createPyStruct = True
 # PV+ cells properties 
 cfg.NPV=100 # Number of Inhibitory neurons
 cfg.HOMOGENEOUS_PV = False 
-cfg.NumModels = 1 if (cfg.HOMOGENEOUS_PV and not cfg.GAP) else cfg.NPV
+cfg.NumModelsPV = 1 if (cfg.HOMOGENEOUS_PV and not cfg.GAP) else cfg.NPV # With gap junctions and homogeneity I have an error in the code
 cfg.FactorTau, cfg.FactorKv3, cfg.FactorKv7 = 1, 1, 1   # To modify the activation curves for ion channels and the membrane time constant
 
 # Stellate cells properties 
 cfg.Mittal = True # If True, uses the Mittal et al. model for Stellate cells
 cfg.NSC=4*cfg.NPV # Number of Stellate cells
+cfg.HOMOGENEOUS_SC = False 
+cfg.NumModelsSC = 1 if cfg.HOMOGENEOUS_SC else 157 # Load all the valid SC models
+cfg.SCidx = 0 # Which model to load if using homogeneous population
 
 # Optogenetic drive                                                                                                                                                                                                                                                                                                                            
 cfg.OPTODRIVE=True                                                   
-cfg.g_sin = 5.*1e-3 # Optogenetic conductance for the inhibitory population                  
-cfg.g_sinExc = 9.*1e-3 # Optogenetic conductance for the excitatory population.
+cfg.g_sin = 4.*1e-3 # Optogenetic conductance for the inhibitory population                  
+cfg.g_sinExc = 6.*1e-3 # Optogenetic conductance for the excitatory population.
 cfg.fsin=8  # Optogenetic sinusoidal stimulation, in Hz
 # Heterogeneous optogenetic drive for the PV+ cells
-cfg.HETERDRVE = True
+cfg.HETERDRIVE = True
 np.random.seed(cfg.seeds['opto'])  # Fixed seed
 cfg.drives = np.random.normal(loc=cfg.g_sin, scale=0.1*cfg.g_sin, size=cfg.NPV)
 
@@ -64,16 +67,16 @@ cfg.GAP=True
 cfg.WODepression=False # Without short-term depression                                                                                                                                                                                                                                                                                                      
 cfg.SYNAPSES = 'Hyper' # ['Hyper','Shunt','Uniform'] 
 cfg.Esyn_inh = {'Hyper': -75., 'Shunt': -55., 'Uniform': 'uniform(-70,-55)'}
-cfg.GapJunctProb, cfg.ChemycalConnProb = 0.01, 0.3 # Probability connections from FS PV+ to FS PV+                                                           
-cfg.ConnProbIE, cfg.ConnProbEI = 0.3, 0.3 # FS PV+ to SC and SC to FS PV+ probability connections
-cfg.Weight_E2I = 0.00005
+cfg.GapJunctProb, cfg.ChemycalConnProb = 0.05, 0.3 # Probability connections from FS PV+ to FS PV+                                                           
+cfg.ConnProbIE, cfg.ConnProbEI = 0.2, 0.3 # FS PV+ to SC and SC to FS PV+ probability connections
+cfg.Weight_E2I = 0.001
 
 ###############################################################################
 ## Recording and analysis
 ###############################################################################
 # The index of cells are: First 100 are PV, the rest are SC 
-cfg.ClampCells = [1,20,40,50,90,105,110,120,130,230,250,270,290,300,350]
-recordedCells2 = [1, 11, 220, 230] #[1,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100,105,110,115,120,125,130,135,140,145,150,155,160,165,170,175,180,185,190,195,200,205,210,215,220,225,230,235,240,245,250,255,260,265,270,275,280,285,290,295,300,350,400]
+cfg.ClampCells = [1, 20, 130]#[1,20,40,50,90,105,110,120,130,230,250,270,290,300,350]
+recordedCells2 = [1, 11, 120, 130] #[1,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100,105,110,115,120,125,130,135,140,145,150,155,160,165,170,175,180,185,190,195,200,205,210,215,220,225,230,235,240,245,250,255,260,265,270,275,280,285,290,295,300,350,400]
 # recordedCells3 = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,105,110,115,120,125,130,135,140,145,150,155,160,165,170,175,180,185,190,195,200,205,210,215,220,225,230,235,240,245,250,255,260,265,270,275,280,285,290,295,300,350,400]
 for_raster = ['FS', 'SC'] # [5,11,12,15,18,25,29,35,43,50,55,56,57,65,67,68,70,71,72,76,78,81,93] # Cells to include in the raster plot
 offset = 0

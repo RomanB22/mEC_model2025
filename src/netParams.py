@@ -13,7 +13,7 @@ cwd = os.getcwd()  # Get current working directory
 # Default network parameters
 netParams = specs.NetParams()  # object of class NetParams to store the network parameters
 netParams.defaultDelay = 0 #This is because it creates gap junctions with defaultDelay = 1 ms if not 
-netParams.defaultThreshold = -10.0
+netParams.defaultThreshold = 0.0
 
 ###############################################################################
 ## Create and load parameters for the PV network
@@ -27,9 +27,6 @@ cellParamsPV = defs.PVCell(cfg, gLs, ELs, CapsOrig, ConductWithGapJunct, ReversP
 cellParamsSC = defs.SCell_HH(cfg)
 cellParamsSC_Mittal = defs.SC_Mittal(cwd, cfg)
 
-# print(cellParamsSC_Mittal)
-# quit()
-
 netParams.cellParams = cellParamsPV | cellParamsSC_Mittal if cfg.Mittal else cellParamsPV | cellParamsSC # Combine all dictionaries
 
 ###############################################################################
@@ -37,7 +34,7 @@ netParams.cellParams = cellParamsPV | cellParamsSC_Mittal if cfg.Mittal else cel
 ###############################################################################
 # Population parameters
 netParams.popParams['FS'] = {'cellType': 'FS', 'numCells': cfg.NPV, 'diversity': True} # add dict with params for this pop
-netParams.popParams['SC'] = {'cellType': 'SC', 'numCells': cfg.NSC} # add dict with params for this pop
+netParams.popParams['SC'] = {'cellType': 'SC', 'numCells': cfg.NSC, 'diversity': True} # add dict with params for this pop
 #netParams.popParams['PYR'] = {'cellType': 'PYR', 'numCells': 1} 
 
 ###############################################################################
@@ -57,7 +54,6 @@ if cfg.Clamp==True:
 ###############################################################################
 
 ## Inhibitory synapses FS-> FS
-
 tau_rise=0.3
 tau_fall=2.
 c_fall = 1/tau_fall
@@ -126,5 +122,5 @@ netParams.connParams['SC->FS'] = {
         'probability': cfg.ConnProbEI,
         #am subbing weight for conductance, gms was in nanosiemens and needs to be converted to uS
         'weight': cfg.Weight_E2I,#'0.0039*lognormal(0.01,1e-1)',       #'0.8*lognormal(0.01,1e-1)'               # weight of each connection#gms*0.001
-        'synMech': 'AMPA',                   # target inh synapse
+        'synMech': 'AMPA',                   # target exc synapse
          'delay': '0.6+(1-0.6)*uniform(0,1)'} #'0.6+(1-0.6)*uniform(0,1)'                   # delay

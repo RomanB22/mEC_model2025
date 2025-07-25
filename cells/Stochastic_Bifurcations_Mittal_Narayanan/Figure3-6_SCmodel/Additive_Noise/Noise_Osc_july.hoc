@@ -554,7 +554,7 @@ objref v41, v42, v43, v44, v45, v46, v47, v48, v49, v50, v51, v52, v53, v54, v55
 
 proc open_files(){
 	
-	print "simulation no:", simulno
+	//print "simulation no:", simulno
 	
 	f1 = new File()
 	sprint(filename1,"waves/gNaf_july.txt")
