@@ -1,0 +1,5 @@
+numpy
+scipy
+brian2
+neuron
+netpyne
