@@ -20,10 +20,10 @@ pip install -r requirements.txt
 
 ## Simulations Setup
 
-Set the `PYTHONPATH` from the root of the repository:
+Add the root directory to `PYTHONPATH`:
 
 ```bash
-export PYTHONPATH=$PWD
+export PYTHONPATH=PYTHONPATH:$PWD
 nrnivmodl mod
 ```
 
