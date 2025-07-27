@@ -66,4 +66,6 @@ where that property is any of the ones defined in `src/cfg.py`. That will create
 
 - [ ] Check that the temperature for the simulation is correct (`cfg.hParams = {'celsius': 23, 'v_init': -80}` in `src/cfg.py`). That shouldn't change anything unless any of the ion channels have a temperature-dependent behavior
 - [ ] Add instructions on how to run NEURON with `mpi` to speed up sims. Ask Chris since it depends on each cluster configuration.
+- [ ] Add gap junction in spatial model, correct the weight distributions, change the probability of connection adjusting the gaussian to reproduce experimental findings
+- [ ] Update density and connectivity parameters based on Bjerke et al. 2020 and Fernandez et al. 2022
 - [x] Completed Item

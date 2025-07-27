@@ -190,3 +190,4 @@ def SC_Mittal(cwd, cfg):
         netParamsAux2.cellParams['SC_'+str(k)] = copy.deepcopy(cellRuleAux)
     gc.collect()
     return netParamsAux2.cellParams
+
