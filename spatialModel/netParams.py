@@ -86,17 +86,17 @@ netParams.connParams['FS->FS_chem'] = {
         'synMech': 'inhFSFS',                   # target inh synapse
          'delay': cfg.delaysI2Ichem}                    # delay
 # if cfg.GAP==True:
-#     netParams.synMechParams['gap'] = {'mod': 'ElectSyn', 'g': 1}
-#     # Connectivity parameters
-#     netParams.connParams['FS->FS_gap'] = {
-#             'preConds': {'pop': 'FS'},         # presynaptic conditions
-#             'postConds': {'pop': 'FS'},        # postsynaptic conditions
-#             'connList': synsgj,
-#             'gapJunction': True, #Netpyne auto makes these junctions bidirectional so we don't want to read the direction in twice
-#             'sec':'soma',
-#             'weight': ggs,                      # weight of each connection. I'm subbing weight for conductance, gms was in nanosiemens and needs to be converted to uS
-#             'synMech': 'gap',                   # target inh synapse
-#             'delay': 0}
+    # netParams.synMechParams['gap'] = {'mod': 'ElectSyn', 'g': 1}
+    # # Connectivity parameters
+    # netParams.connParams['FS->FS_gap'] = {
+    #         'preConds': {'pop': 'FS'},         # presynaptic conditions
+    #         'postConds': {'pop': 'FS'},        # postsynaptic conditions
+    #         'connList': synsgj,
+    #         'gapJunction': True, #Netpyne auto makes these junctions bidirectional so we don't want to read the direction in twice
+    #         'sec':'soma',
+    #         'weight': ggs,                      # weight of each connection. I'm subbing weight for conductance, gms was in nanosiemens and needs to be converted to uS
+    #         'synMech': 'gap',                   # target inh synapse
+    #         'delay': 0}
 ###############################################################################
 ## Inhibitory synapses FS-> SC
 
