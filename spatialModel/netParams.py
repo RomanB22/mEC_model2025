@@ -13,7 +13,7 @@ cwd = os.getcwd()  # Get current working directory
 # Default network parameters
 netParams = specs.NetParams()  # object of class NetParams to store the network parameters
 netParams.defaultDelay = 0 #This is because it creates gap junctions with defaultDelay = 1 ms if not 
-netParams.defaultThreshold = 0.0
+netParams.defaultThreshold = -20.0
 
 netParams.shape = 'cuboid'
 netParams.sizeX = cfg.xlength # x-dimension (horizontal length) size in um
@@ -28,7 +28,8 @@ netParams.sizeZ = cfg.zlength # z-dimension (horizontal depth) size in um
 
 gLs, ELs, CapsOrig, ConductWithGapJunct, ReversPotWithGapJunct, CapsMod, gNas, gKv3s, gKv7s, thm1s, thh2s, thn1s, tha1s, SharedParams, synsgj, ggs = Inet.ViaModelParams(NumNeurons=cfg.NPV, FactorTau=cfg.FactorTau, FactorKv3=cfg.FactorKv3, FactorKv7=cfg.FactorKv7, GapJunctProb=0,homogeneous=cfg.HOMOGENEOUS_PV, randomseed = cfg.seeds['brian2'])
 # syns, delays, gms = Inet.NetConnectivity(ChemycalConnProb=cfg.ChemycalConnProb, delaymin=.6, delaymax=1., meangms=0., sigmagms=1.)
-
+netParams.ConductOrig = gLs  # Original conductance for the PV+ cells
+netParams.ReversPotOrig = ELs  # Original reversal potential for the PV+ cells
 ###############################################################################
 ## Cell types
 ###############################################################################
@@ -85,18 +86,7 @@ netParams.connParams['FS->FS_chem'] = {
         'weight': cfg.weightI2Ichem,                 
         'synMech': 'inhFSFS',                   # target inh synapse
          'delay': cfg.delaysI2Ichem}                    # delay
-# if cfg.GAP==True:
-    # netParams.synMechParams['gap'] = {'mod': 'ElectSyn', 'g': 1}
-    # # Connectivity parameters
-    # netParams.connParams['FS->FS_gap'] = {
-    #         'preConds': {'pop': 'FS'},         # presynaptic conditions
-    #         'postConds': {'pop': 'FS'},        # postsynaptic conditions
-    #         'connList': synsgj,
-    #         'gapJunction': True, #Netpyne auto makes these junctions bidirectional so we don't want to read the direction in twice
-    #         'sec':'soma',
-    #         'weight': ggs,                      # weight of each connection. I'm subbing weight for conductance, gms was in nanosiemens and needs to be converted to uS
-    #         'synMech': 'gap',                   # target inh synapse
-    #         'delay': 0}
+
 ###############################################################################
 ## Inhibitory synapses FS-> SC
 

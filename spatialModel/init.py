@@ -13,9 +13,10 @@ cfg, netParams = sim.readCmdLineArgs(simConfigDefault='spatialModel/cfg.py', net
 sim.initialize(simConfig = cfg, netParams = netParams)  				# create network object and set cfg and net params
 sim.net.createPops()               			# instantiate network populations
 sim.net.createCells()              			# instantiate network cells based on defined populations
-# print('Creating gap junctions...')
-# defs.GapJunctSpatialConnectivity(sim, netParams, gLmin=2., ggapHigh=1.3, full_dist=False, sigma=.4)
-# print('Gap junctions created.')
+if cfg.GAP:
+    print('Creating gap junctions...')
+    defs.GapJunctSpatialConnectivity(sim, netParams, gLmin=2., ggapHigh=1.3, full_dist=False, sigma=.4)
+    print('Gap junctions created.')
 sim.net.connectCells()            			# create connections between cells based on params
 sim.net.addStims() 							# add network stimulation
 sim.setupRecording()              			# setup variables to record for each cell (spikes, V traces, etc)

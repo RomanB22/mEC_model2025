@@ -16,7 +16,7 @@ cfg.saveFolder = 'outputSpatial'  # Folder to save output
 cfg.simLabel = 'mEC_0'  # Simulation label, used in output file names
 cfg.validateNetParams = False
 cfg.verbose = False           # Show detailed messages
-# cfg.progressBar = 0       # Show progress bar
+# cfg.progressBar = 0       # Hide progress bar
 cfg.recordStep = cfg.dt        # Step size in ms to save data (e.g. V traces, LFP, etc)
 cfg.seeds = {'conn': 4321, 'stim': 1234, 'loc': 4321, 'cell': 4321, 'brian2': 7894, 'opto': 42} # Random seeds for reproducibility. brian2 seed is for the PV network.
 cfg.saveJson = True
@@ -32,25 +32,25 @@ cfg.createPyStruct = True
 # Synapses parameters                                                                                                                                                                                                                                 
 cfg.gmsScale = 1 # Scaling for the synaptic conductances                                                                                                                                         
 cfg.ggsScale = 1 # Scaling for gap junction conductances                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
-cfg.GAP=False # NOT IMPLEMENTED YET            
+cfg.GAP=True # CHECK IT JUST IN CASE           
 cfg.GapJunctMaxDist = 150 # Maximum distance for gap junction connections, in um                                                                                                                                                                
 cfg.WODepression=False # Without short-term depression                                                                                                                                                                                                                                                                                                      
 cfg.SYNAPSES = 'Hyper' # ['Hyper','Shunt','Uniform'] 
 cfg.Esyn_inh = {'Hyper': -75., 'Shunt': -55., 'Uniform': 'uniform(-70,-55)'}
-cfg.GapJunctProb, cfg.ChemycalConnProb = 0.01, 0.3 # Probability connections from FS PV+ to FS PV+  
+cfg.GapJunctProb, cfg.ChemycalConnProb = 0.01, 0.2 # Probability connections from FS PV+ to FS PV+  
 
-cfg.Weight_E2I = 'lognormal(1.65,2.17)*1e-3/3' # Weight from excitatory to inhibitory cells
-cfg.weightI2E = 'lognormal(1.65,2.17)*1e-3/3' # Weight from inhibitory to excitatory cells
-cfg.weightI2Ichem = 'lognormal(1.65,2.17)*1e-3' # Weight from inhibitory to inhibitory cells
+cfg.Weight_E2I = 'lognormal(0.1*1.65, 0.1*2.17)*1e-3' # Weight from excitatory to inhibitory cells
+cfg.weightI2E = 'lognormal(0.1*1.65, 0.1*2.17)*1e-3' # Weight from inhibitory to excitatory cells
+cfg.weightI2Ichem = 'lognormal(0.1*1.65,2.17)*1e-3' # Weight from inhibitory to inhibitory cells
 
 cfg.delaysE2I = '0.6+(1-0.6)*uniform(0,1)' # Delay from excitatory to inhibitory cells
 cfg.delaysI2E = '0.6+(1-0.6)*uniform(0,1)' # Delay from inhibitory to excitatory cells
-cfg.delaysI2Ichem = '0.3+(1-0.3)*uniform(0,1)'# Delay from inhibitory to inhibitory cells
+cfg.delaysI2Ichem = '0.6+(1-0.6)*uniform(0,1)'# Delay from inhibitory to inhibitory cells
 
 # Could be 2D or 3D distance: dist_2D, dist_3D
-cfg.E2IProb = 'exp(-(dist_2D**2)/(2*98.36**2))'
-cfg.I2EProb = 'exp(-(dist_2D**2)/(2*98.36**2))'
-cfg.I2IProbchem = 'exp(-(dist_2D**2)/(2*98.36**2))' 
+cfg.E2IProb = 'exp(-(dist_3D**2)/(2*98.36**2))'
+cfg.I2EProb = 'exp(-(dist_3D**2)/(2*98.36**2))'
+cfg.I2IProbchem = 'exp(-(dist_3D**2)/(2*98.36**2))' 
 
 # Geometry and density
 cfg.xlength = 800 # x-dimension (horizontal length) size in um
@@ -69,14 +69,14 @@ cfg.FactorTau, cfg.FactorKv3, cfg.FactorKv7 = 1, 1, 1   # To modify the activati
 # Stellate cells properties 
 cfg.Mittal = True # If True, uses the Mittal et al. model for Stellate cells
 cfg.NSC = int(cfg.SCdensity * volume)  # Number of Stellate cells. NOT USED HERE
-cfg.HOMOGENEOUS_SC = True 
+cfg.HOMOGENEOUS_SC = False 
 cfg.NumModelsSC = 1 if cfg.HOMOGENEOUS_SC else 157 # Load all the valid SC models
 cfg.SCidx = 0 # Which model to load if using homogeneous population
 
 # Optogenetic drive                                                                                                                                                                                                                                                                                                                            
 cfg.OPTODRIVE=True                                                   
 cfg.g_sin = 4.*1e-3 # Optogenetic conductance for the inhibitory population                  
-cfg.g_sinExc = 4.*1e-3 # Optogenetic conductance for the excitatory population.
+cfg.g_sinExc = 6.*1e-3 # Optogenetic conductance for the excitatory population.
 cfg.fsin=8  # Optogenetic sinusoidal stimulation, in Hz
 # Heterogeneous optogenetic drive for the PV+ cells
 cfg.HETERDRIVE = True

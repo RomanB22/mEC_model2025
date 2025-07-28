@@ -193,15 +193,14 @@ def SC_Mittal(cwd, cfg):
 
 def GapJunctSpatialConnectivity(sim, netParams, gLmin=2., ggapHigh=1.3, full_dist=False, sigma=.4):
   from scipy.stats import truncnorm
-  FactorConductance = 1e2
   NumNeurons = len(sim.net.pops['FS'].cellGids)
   Ngaps = int(NumNeurons*sim.cfg.GapJunctProb)
-  AreaOrig = np.array([sim.net.cells[i].secs.soma.geom.diam*np.pi*sim.net.cells[i].secs.soma.geom.L*1e-2 for i in sim.net.pops['FS'].cellGids])
-  ConductOrig = np.array([(sim.net.cells[i].secs.soma.mechs.pas.g)*AreaOrig[i]*FactorConductance for i in sim.net.pops['FS'].cellGids])
-  ReversPotOrig = np.array([sim.net.cells[i].secs.soma.mechs.pas.e for i in sim.net.pops['FS'].cellGids])
+  ConductOrig = netParams.ConductOrig
+  ReversPotOrig = netParams.ReversPotOrig
   ConductWithGapJunct = np.copy(ConductOrig)
   ReversPotWithGapJunctAux = ConductOrig*ReversPotOrig
   ReversPotWithGapJunct = np.zeros(np.shape(ReversPotOrig))
+  AreaOrig = np.array([sim.net.cells[i].secs.soma.geom.diam*np.pi*sim.net.cells[i].secs.soma.geom.L*1e-2 for i in sim.net.pops['FS'].cellGids])
   synsgj = []
   ggs = []
   for presynGJ in range(NumNeurons):
@@ -209,7 +208,7 @@ def GapJunctSpatialConnectivity(sim, netParams, gLmin=2., ggapHigh=1.3, full_dis
     NumIter = 0
     while NumGapJuncts <= int(Ngaps/2.) and NumIter<2*NumNeurons: # We start adding ggaps with Ngaps/2 partners (plus bidirectional, approx Ngaps partners) to each pre. We put a maximum in the iteration number, just in case the amount of possible gap junctions is less than Ngaps/2
       postsynGJ = np.random.randint(0, NumNeurons)
-      distancePrePost = np.sqrt((sim.net.cells[presynGJ].tags['x'] - sim.net.cells[postsynGJ].tags['x'])**2 + (sim.net.cells[presynGJ].tags['y'] - sim.net.cells[postsynGJ].tags['y'])**2 + (sim.net.cells[presynGJ].tags['z'] - sim.net.cells[postsynGJ].tags['z'])**2)
+      distancePrePost = np.sqrt((sim.net.cells[presynGJ].tags['x'] - sim.net.cells[postsynGJ].tags['x'])**2 + (sim.net.cells[presynGJ].tags['y'] - sim.net.cells[postsynGJ].tags['y'])**2 + (sim.net.cells[presynGJ].tags['z'] - sim.net.cells[postsynGJ].tags['z'])**2) 
       if distancePrePost>sim.cfg.GapJunctMaxDist: continue # To avoid gap junctions between cells that are too far away
       if presynGJ==postsynGJ: continue # To avoid self-gap junctions
       if (presynGJ,postsynGJ) not in synsgj:
@@ -228,23 +227,23 @@ def GapJunctSpatialConnectivity(sim, netParams, gLmin=2., ggapHigh=1.3, full_dis
       NumIter+=1
 
     ReversPotWithGapJunct[presynGJ] = ReversPotWithGapJunctAux[presynGJ]/ConductWithGapJunct[presynGJ]
-    # Update values
-    for i in sim.net.pops['FS'].cellGids:
-        sim.net.cells[i].secs.soma.mechs.pas.g = ConductWithGapJunct[i]
-        sim.net.cells[i].secs.soma.mechs.pas.e = ReversPotWithGapJunct[i]
-
-    if sim.cfg.GAP==True:
-        # Add gap junction parameters to existing netParams
-        sim.net.params.synMechParams['gap'] = {'mod': 'ElectSyn', 'g': 1}
-        sim.net.params.connParams['FS->FS_gap'] = {
-            'preConds': {'pop': 'FS'}, 
-            'postConds': {'pop': 'FS'}, 
-            'connList': synsgj,
-            'gapJunction': True,
-            'sec': 'soma',
-            'weight': ggs,
-            'synMech': 'gap',
-            'delay': 0
-}
+  # Update values
+  for i in sim.net.pops['FS'].cellGids:
+    sim.net.cells[i].secs.soma.mechs.pas.g = ConductWithGapJunct[i]/AreaOrig[i]*1e-3
+    sim.net.cells[i].secs.soma.mechs.pas.e = ReversPotWithGapJunct[i]
+  ggs = [i*1e-3 for i in ggs] 
+  if sim.cfg.GAP==True:
+    # Add gap junction parameters to existing netParams
+    sim.net.params.synMechParams['gap'] = {'mod': 'ElectSyn', 'g': 1}
+    sim.net.params.connParams['FS->FS_gap'] = {
+                'preConds': {'pop': 'FS'}, 
+                'postConds': {'pop': 'FS'}, 
+                'connList': synsgj,
+                'gapJunction': True,
+                'sec': 'soma',
+                'weight': ggs,
+                'synMech': 'gap',
+                'delay': 0
+    }
 
   return None
