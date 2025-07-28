@@ -31,16 +31,16 @@ nrnivmodl mod
 
 ### Setting up the parameters
 
-In `src/cfg.py` you can modify all the parameters, variables and conditions for the simulation. For example, you can change the values of the flags to have sinusoidal optogenetic drive, choose the stellate cell model, add gap junction connectivity between the PV cells, change the recorded cells, simulation time, etc.
+In `spatialModel/cfg.py` you can modify all the parameters, variables and conditions for the simulation. For example, you can change the values of the flags to have sinusoidal optogenetic drive, choose the stellate cell model, add gap junction connectivity between the PV cells, change the recorded cells, simulation time, etc.
 
 ## ▶Running Simulations
 
 ### Run a Single Simulation
 
-All simulation parameters are defined in the `src/cfg.py` file. To run a single simulation:
+All simulation parameters are defined in the `spatialModel/cfg.py` file. To run a single simulation:
 
 ```bash
-python -u src/init.py
+python -u spatialModel/init.py
 ```
 
 ### Run Batch Simulations (Experimental)
@@ -48,13 +48,13 @@ python -u src/init.py
 To run multiple simulations on the terminal using the batch submitter:
 
 ```bash
-python -u src/batch.py
+python -u spatialModel/batch.py
 ```
-The function `runNetworks(NumNetworks=X)` will run X number of networks with different connectivity but the same parameters as in `src/cfg.py`. It is possible to create another function with another set of 
+The function `runNetworks(NumNetworks=X)` will run X number of networks with different connectivity but the same parameters as in `spatialModel/cfg.py`. It is possible to create another function with another set of 
 ```bash
 params['property'] = [list of values]
 ```
-where that property is any of the ones defined in `src/cfg.py`. That will create automatically all possible combination of values between all the params (be careful since the number of combinations grows exponentially). See for example the function `runDifferentReversalPot()`
+where that property is any of the ones defined in `spatialModel/cfg.py`. That will create automatically all possible combination of values between all the params (be careful since the number of combinations grows exponentially). See for example the function `runDifferentReversalPot()`
 
 > ⚠️ Note: Batch simulations have not been fully tested yet.
 
