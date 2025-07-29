@@ -36,6 +36,6 @@ connMatrix, pre, post = sim.analysis.network._plotConnCalculateFromSim(
     removeWeightNorm = False,
     logPlot=False,
 )
-sim.simData['ConnMatrix'] = connMatrix
+sim.allSimData.ConnMatrix = connMatrix
 sim.saveData()                    			# save params, cell info and sim output to file (pickle,mat,txt,etc)#
 sim.analysis.plotData()         			# plot spike raster etc

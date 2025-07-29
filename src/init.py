@@ -25,5 +25,5 @@ connMatrix, pre, post = sim.analysis.network._plotConnCalculateFromSim(
     removeWeightNorm = False,
     logPlot=False,
 )
-sim.simData['ConnMatrix'] = connMatrix
+sim.allSimData.ConnMatrix = connMatrix
 sim.analyze()
