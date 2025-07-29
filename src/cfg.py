@@ -31,6 +31,14 @@ cfg.saveCellConns = True
 cfg.saveJson = False
 cfg.savePickle = True
 
+#------------------------------------------------------------------------------
+# Current inputs 
+#------------------------------------------------------------------------------
+cfg.addIClamp = False
+
+cfg.IClamp1 = {'pop': 'FS', 'sec': 'soma', 'loc': 0.5, 'start': 50, 'dur': 100, 'amp': 0.50}
+cfg.IClamp2 = {'pop': 'SC', 'sec': 'soma', 'loc': 0.5, 'start': 50, 'dur': 100, 'amp': 0.50}
+
 ###############################################################################
 ## SimParams
 ############################################################################### 
@@ -48,9 +56,9 @@ cfg.NumModelsSC = 1 if cfg.HOMOGENEOUS_SC else 157 # Load all the valid SC model
 cfg.SCidx = 0 # Which model to load if using homogeneous population
 
 # Optogenetic drive                                                                                                                                                                                                                                                                                                                            
-cfg.OPTODRIVE=True                                                   
-cfg.g_sin = 4.*1e-3 # Optogenetic conductance for the inhibitory population                  
-cfg.g_sinExc = 6.*1e-3 # Optogenetic conductance for the excitatory population.
+cfg.OPTODRIVE=False                                                   
+cfg.g_sin = 0*4.*1e-3 # Optogenetic conductance for the inhibitory population                  
+cfg.g_sinExc = 0*6.*1e-3 # Optogenetic conductance for the excitatory population.
 cfg.fsin=8  # Optogenetic sinusoidal stimulation, in Hz
 # Heterogeneous optogenetic drive for the PV+ cells
 cfg.HETERDRIVE = True
