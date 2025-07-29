@@ -13,7 +13,7 @@ cwd = os.getcwd()  # Get current working directory
 # Default network parameters
 netParams = specs.NetParams()  # object of class NetParams to store the network parameters
 netParams.defaultDelay = 0 #This is because it creates gap junctions with defaultDelay = 1 ms if not 
-netParams.defaultThreshold = -20.0
+netParams.defaultThreshold = -30.0
 
 ###############################################################################
 ## Create and load parameters for the PV network

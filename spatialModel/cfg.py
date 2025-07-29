@@ -19,12 +19,17 @@ cfg.verbose = False           # Show detailed messages
 # cfg.progressBar = 0       # Hide progress bar
 cfg.recordStep = cfg.dt        # Step size in ms to save data (e.g. V traces, LFP, etc)
 cfg.seeds = {'conn': 4321, 'stim': 1234, 'loc': 4321, 'cell': 4321, 'brian2': 7894, 'opto': 42} # Random seeds for reproducibility. brian2 seed is for the PV network.
-cfg.saveJson = True
 cfg.saveDataInclude = ['simData', 'simConfig', 'net']  # Which data to save in the output file
 cfg.printRunTime = 0.1 # Print run time every 0.1 seconds
 cfg.recordTime = False  
 cfg.createNEURONObj = True
 cfg.createPyStruct = True
+cfg.backupCfgFile = None #['cfg.py', 'backupcfg/']
+cfg.gatherOnlySimData = False
+cfg.saveCellSecs = False
+cfg.saveCellConns = True
+cfg.saveJson = False
+cfg.savePickle = True
 
 ###############################################################################
 ## SimParams
