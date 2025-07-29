@@ -11,4 +11,19 @@ from netpyne import sim
 cfg, netParams = sim.readCmdLineArgs(simConfigDefault='src/cfg.py', netParamsDefault='src/netParams.py')
 sim.create(netParams = netParams, simConfig = cfg)
 sim.simulate()
+# Calculate cell-to-cell connectivity matrix
+connMatrix, pre, post = sim.analysis.network._plotConnCalculateFromSim(
+    includePre=['all'],
+    includePost=['all'],
+    feature='numConns',
+    orderBy='gid',
+    groupBy='cell',
+    groupByIntervalPre=None,
+    groupByIntervalPost=None,
+    synOrConn='conn',
+    synMech=None,
+    removeWeightNorm = False,
+    logPlot=False,
+)
+sim.simData['ConnMatrix'] = connMatrix
 sim.analyze()
