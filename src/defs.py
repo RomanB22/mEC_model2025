@@ -75,6 +75,8 @@ def SCell_HH(cfg):
     SCcell['secs']['soma']['geom'] = {'diam': 18.2, 'L': 18.2, 'Ra': 150, 'cm':1}                           # soma geometry
     SCcell['secs']['soma']['mechs']['hh'] = {'gnabar': '0.12*normal(1,3e-2)', 'gkbar': '0.036*normal(1,3e-2)', 'gl': '0.0000357*normal(1.2,1e-1)', 'el': -68}  
     SCcell['secs']['soma']['vinit'] = np.random.uniform(-65,-58) # set initial membrane potential
+    # SCcell['secs']['soma']['mechs']['hh'] = {'gnabar': 0.12, 'gkbar': 0.036, 'gl': 0.0000357, 'el': -68}  
+    # SCcell['secs']['soma']['vinit'] = -70 
     netParamsAux.cellParams['SC'] = SCcell
 
     gc.collect()

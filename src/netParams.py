@@ -34,7 +34,10 @@ netParams.cellParams = cellParamsPV | cellParamsSC_Mittal if cfg.Mittal else cel
 ###############################################################################
 # Population parameters
 netParams.popParams['FS'] = {'cellType': 'FS', 'numCells': cfg.NPV, 'diversity': True} # add dict with params for this pop
-netParams.popParams['SC'] = {'cellType': 'SC', 'numCells': cfg.NSC, 'diversity': True} # add dict with params for this pop
+if cfg.HOMOGENEOUS_SC:
+     netParams.popParams['SC'] = {'cellType': 'SC', 'numCells': cfg.NSC}
+else:                       
+    netParams.popParams['SC'] = {'cellType': 'SC', 'numCells': cfg.NSC, 'diversity': True} # add dict with params for this pop
 #netParams.popParams['PYR'] = {'cellType': 'PYR', 'numCells': 1} 
 
 ###############################################################################

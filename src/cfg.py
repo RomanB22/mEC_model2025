@@ -7,8 +7,8 @@ cfg = specs.SimConfig()       # object of class SimConfig to store simulation co
 ###############################################################################
 ## Simulation parameters
 ###############################################################################
-cfg.ThetaCycles = 12          # Number of theta cycles to simulate
-cfg.Theta2Plot = 2          # Number of theta cycles to plot
+cfg.ThetaCycles = 4          # Number of theta cycles to simulate
+cfg.Theta2Plot = 4          # Number of theta cycles to plot
 cfg.duration = cfg.ThetaCycles*125.          # Duration of the simulation, in ms
 cfg.dt = 1e-2                # Internal integration timestep to use
 cfg.hParams = {'celsius': 23, 'v_init': -80}  
@@ -16,7 +16,7 @@ cfg.saveFolder = 'output'  # Folder to save output
 cfg.simLabel = 'mEC_0'  # Simulation label, used in output file names
 cfg.validateNetParams = False
 cfg.verbose = False           # Show detailed messages
-cfg.progressBar = 0       # Show progress bar
+# cfg.progressBar = 0       # Show progress bar
 cfg.recordStep = cfg.dt        # Step size in ms to save data (e.g. V traces, LFP, etc)
 cfg.seeds = {'conn': 4321, 'stim': 1234, 'loc': 4321, 'cell': 4321, 'brian2': 7894, 'opto': 42} # Random seeds for reproducibility. brian2 seed is for the PV network.
 cfg.saveDataInclude = ['simData', 'simConfig', 'net']  # Which data to save in the output file
@@ -27,14 +27,14 @@ cfg.createPyStruct = True
 cfg.backupCfgFile = None #['cfg.py', 'backupcfg/']
 cfg.gatherOnlySimData = False
 cfg.saveCellSecs = False
-cfg.saveCellConns = True
-cfg.saveJson = False
-cfg.savePickle = True
+cfg.saveCellConns = False
+cfg.saveJson = True
+cfg.savePickle = False
 
 #------------------------------------------------------------------------------
 # Current inputs 
 #------------------------------------------------------------------------------
-cfg.addIClamp = True
+cfg.addIClamp = False
 
 cfg.IClamp1 = {'pop': 'FS', 'sec': 'soma', 'loc': 0.5, 'start': 50, 'dur': 100, 'amp': 0.50}
 cfg.IClamp2 = {'pop': 'SC', 'sec': 'soma', 'loc': 0.5, 'start': 50, 'dur': 100, 'amp': 0.50}
@@ -49,16 +49,18 @@ cfg.NumModelsPV = 1 if (cfg.HOMOGENEOUS_PV and not cfg.GAP) else cfg.NPV # With 
 cfg.FactorTau, cfg.FactorKv3, cfg.FactorKv7 = 1, 1, 1   # To modify the activation curves for ion channels and the membrane time constant
 
 # Stellate cells properties 
-cfg.Mittal = True # If True, uses the Mittal et al. model for Stellate cells
+cfg.Mittal = False # If True, uses the Mittal et al. model for Stellate cells
 cfg.NSC=4*cfg.NPV # Number of Stellate cells
-cfg.HOMOGENEOUS_SC = False 
+cfg.HOMOGENEOUS_SC = True 
 cfg.NumModelsSC = 1 if cfg.HOMOGENEOUS_SC else 157 # Load all the valid SC models
 cfg.SCidx = 0 # Which model to load if using homogeneous population
 
+if cfg.Mittal==False: cfg.HOMOGENEOUS_SC=True
+
 # Optogenetic drive                                                                                                                                                                                                                                                                                                                            
 cfg.OPTODRIVE=True                                                   
-cfg.g_sin = 4.*1e-3 # Optogenetic conductance for the inhibitory population                  
-cfg.g_sinExc = 6.*1e-3 # Optogenetic conductance for the excitatory population.
+cfg.g_sin = 7.*1e-3 # Optogenetic conductance for the inhibitory population                  
+cfg.g_sinExc = 3.*1e-3 # Optogenetic conductance for the excitatory population.
 cfg.fsin=8  # Optogenetic sinusoidal stimulation, in Hz
 # Heterogeneous optogenetic drive for the PV+ cells
 cfg.HETERDRIVE = True
@@ -70,7 +72,7 @@ cfg.NOISE=False # If true, adds a random fluctuating current simulating in-vivo 
 cfg.MeanENoise, cfg.MeanINoise, cfg.StdENoise, cfg.StdINoise = 0, 0*0.0001, 0.000001, 0.000001                                                                                                                                                                  
 
 # Voltage clamp parameters
-cfg.Clamp=True                                                                  
+cfg.Clamp=False                                                                  
 cfg.Vclamp = 0 # Voltage at which clamp, if cfg.Clamp==True                                                                                                       
 
 # Synapses parameters                                                                                                                                                                                                                                 
@@ -82,7 +84,7 @@ cfg.SYNAPSES = 'Hyper' # ['Hyper','Shunt','Uniform']
 cfg.Esyn_inh = {'Hyper': -75., 'Shunt': -55., 'Uniform': 'uniform(-70,-55)'}
 cfg.GapJunctProb, cfg.ChemycalConnProb = 0.05, 0.3 # Probability connections from FS PV+ to FS PV+                                                           
 cfg.ConnProbIE, cfg.ConnProbEI = 0.2, 0.3 # FS PV+ to SC and SC to FS PV+ probability connections
-cfg.Weight_E2I = 0.001
+cfg.Weight_E2I = 0.00003
 
 ###############################################################################
 ## Recording and analysis
@@ -97,5 +99,5 @@ timeRange = [(cfg.ThetaCycles-cfg.Theta2Plot)*125.,cfg.duration+offset]
 cfg.recordCells = recordedCells2
 cfg.recordTraces = {'V_soma':{'sec':'soma','loc':0.5,'var':'v'}}  # Dict with traces to record
 cfg.analysis['plotRaster'] = {'include': for_raster,'saveFig': True, 'timeRange': timeRange}                  # Plot a raster
-cfg.analysis['plotSpikeHist'] = {'include': ['FS', 'SC'], 'saveFig': True, 'timeRange': timeRange, 'binSize': 1, 'measure': 'rate'}                  # Plot a Spike Histogram
-cfg.analysis['plotTraces'] = {'include': recordedCells2, 'saveFig': True, 'timeRange': timeRange}  # Plot recorded traces for this list of cells
+cfg.analysis['plotSpikeHist'] = {'include': for_raster, 'saveFig': True, 'timeRange': timeRange, 'binSize': 1, 'measure': 'rate'}                  # Plot a Spike Histogram
+# cfg.analysis['plotTraces'] = {'include': recordedCells2, 'saveFig': True, 'timeRange': timeRange}  # Plot recorded traces for this list of cells
