@@ -23,8 +23,8 @@ gLs, ELs, CapsOrig, ConductWithGapJunct, ReversPotWithGapJunct, CapsMod, gNas, g
 ###############################################################################
 ## Cell types
 ###############################################################################
-cellParamsPV = defs.PVCell(cfg, gLs, ELs, CapsOrig, ConductWithGapJunct, ReversPotWithGapJunct, CapsMod, gNas, gKv3s, gKv7s, thm1s, thh2s, thn1s, tha1s, SharedParams)
 cellParamsSC = defs.SCell_HH(cfg)
+cellParamsPV = defs.PVCell(cfg, gLs, ELs, CapsOrig, ConductWithGapJunct, ReversPotWithGapJunct, CapsMod, gNas, gKv3s, gKv7s, thm1s, thh2s, thn1s, tha1s, SharedParams)
 cellParamsSC_Mittal = defs.SC_Mittal(cwd, cfg)
 
 netParams.cellParams = cellParamsPV | cellParamsSC_Mittal if cfg.Mittal else cellParamsPV | cellParamsSC # Combine all dictionaries
@@ -35,8 +35,8 @@ netParams.cellParams = cellParamsPV | cellParamsSC_Mittal if cfg.Mittal else cel
 # Population parameters
 netParams.popParams['FS'] = {'cellType': 'FS', 'numCells': cfg.NPV, 'diversity': True} # add dict with params for this pop
 if cfg.HOMOGENEOUS_SC:
-     netParams.popParams['SC'] = {'cellType': 'SC', 'numCells': cfg.NSC}
-else:                       
+    netParams.popParams['SC'] = {'cellType': 'SC', 'numCells': cfg.NSC} 
+else:
     netParams.popParams['SC'] = {'cellType': 'SC', 'numCells': cfg.NSC, 'diversity': True} # add dict with params for this pop
 #netParams.popParams['PYR'] = {'cellType': 'PYR', 'numCells': 1} 
 
