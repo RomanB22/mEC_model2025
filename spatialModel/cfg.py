@@ -11,7 +11,7 @@ cfg.ThetaCycles = 12          # Number of theta cycles to simulate
 cfg.Theta2Plot = 2          # Number of theta cycles to plot
 cfg.duration = cfg.ThetaCycles*125.          # Duration of the simulation, in ms
 cfg.dt = 1e-2                # Internal integration timestep to use
-cfg.hParams = {'celsius': 23, 'v_init': -80}  
+cfg.hParams = {'v_init': -80}  
 cfg.saveFolder = 'outputSpatial'  # Folder to save output
 cfg.simLabel = 'mEC_0'  # Simulation label, used in output file names
 cfg.validateNetParams = False
@@ -86,6 +86,10 @@ cfg.HOMOGENEOUS_SC = False
 cfg.NumModelsSC = 1 if cfg.HOMOGENEOUS_SC else 157 # Load all the valid SC models
 cfg.SCidx = 0 # Which model to load if using homogeneous population
 
+if cfg.Mittal==False: 
+    cfg.NumModelsSC=1
+    cfg.HOMOGENEOUS_SC = True 
+    
 # Optogenetic drive                                                                                                                                                                                                                                                                                                                            
 cfg.OPTODRIVE=True                                                   
 cfg.g_sin = 4.*1e-3 # Optogenetic conductance for the inhibitory population                  

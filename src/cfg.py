@@ -11,7 +11,7 @@ cfg.ThetaCycles = 12          # Number of theta cycles to simulate
 cfg.Theta2Plot = 2          # Number of theta cycles to plot
 cfg.duration = cfg.ThetaCycles*125.          # Duration of the simulation, in ms
 cfg.dt = 1e-2                # Internal integration timestep to use
-cfg.hParams = {'celsius': 23, 'v_init': -80}  
+cfg.hParams = {'v_init': -80}  
 cfg.saveFolder = 'output'  # Folder to save output
 cfg.simLabel = 'mEC_0'  # Simulation label, used in output file names
 cfg.validateNetParams = False
@@ -49,16 +49,20 @@ cfg.NumModelsPV = 1 if (cfg.HOMOGENEOUS_PV and not cfg.GAP) else cfg.NPV # With 
 cfg.FactorTau, cfg.FactorKv3, cfg.FactorKv7 = 1, 1, 1   # To modify the activation curves for ion channels and the membrane time constant
 
 # Stellate cells properties 
-cfg.Mittal = True # If True, uses the Mittal et al. model for Stellate cells
+cfg.Mittal = False # If True, uses the Mittal et al. model for Stellate cells
 cfg.NSC=4*cfg.NPV # Number of Stellate cells
 cfg.HOMOGENEOUS_SC = False 
 cfg.NumModelsSC = 1 if cfg.HOMOGENEOUS_SC else 157 # Load all the valid SC models
 cfg.SCidx = 0 # Which model to load if using homogeneous population
 
+if cfg.Mittal==False: 
+    cfg.NumModelsSC=1
+    cfg.HOMOGENEOUS_SC = True 
+
 # Optogenetic drive                                                                                                                                                                                                                                                                                                                            
-cfg.OPTODRIVE=False                                                   
-cfg.g_sin = 0*4.*1e-3 # Optogenetic conductance for the inhibitory population                  
-cfg.g_sinExc = 0*6.*1e-3 # Optogenetic conductance for the excitatory population.
+cfg.OPTODRIVE=True                                                   
+cfg.g_sin = 7.*1e-3 # Optogenetic conductance for the inhibitory population                  
+cfg.g_sinExc = 3.*1e-3 # Optogenetic conductance for the excitatory population.
 cfg.fsin=8  # Optogenetic sinusoidal stimulation, in Hz
 # Heterogeneous optogenetic drive for the PV+ cells
 cfg.HETERDRIVE = True
