@@ -63,6 +63,7 @@ if cfg.Mittal==False:
 # Optogenetic drive                                                                                                                                                                                                                                                                                                                            
 cfg.OPTODRIVE=True                                                   
 cfg.g_sin = 7.*1e-3 # Optogenetic conductance for the inhibitory population                  
+
 cfg.g_sinExc = 0.*1e-3 # Optogenetic conductance for the excitatory population.
 cfg.fsin=0  # Optogenetic sinusoidal stimulation, in Hz
 cfg.delayStim = 300 

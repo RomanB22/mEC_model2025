@@ -58,13 +58,14 @@ def PVCell(cfg, gLs, ELs, CapsOrig, ConductWithGapJunct, ReversPotWithGapJunct, 
             cellRule['secs']['soma']['mechs']['kv3'] = {'gbar': gKv3sSA[k], 'thn1': thn1s[k], 'kn1':SharedParams[10], 'kn2':SharedParams[11] }    
         cellRule['secs']['soma']['vinit'] = np.random.uniform(-75,-65) # set initial membrane potential
         netParamsAux.cellParams['FS_'+str(k)] = cellRule
+    
     gc.collect()
     return netParamsAux.cellParams
 
 def SCell_HH(cfg):
     netParamsAux = specs.NetParams()
     # Stellate Cell (Modified Hodgkin Huxley)
-    SCcell = {'secs': {}}
+    SCcell = {'secs': {}, 'conds': {'cellType': 'SC'}}
     if cfg.OPTODRIVE==False:
         SCcell['secs']['soma'] = {'geom': {}, 'mechs': {}} 
     else:
@@ -75,7 +76,8 @@ def SCell_HH(cfg):
     SCcell['secs']['soma']['geom'] = {'diam': 18.2, 'L': 18.2, 'Ra': 150, 'cm':1}                           # soma geometry
     SCcell['secs']['soma']['mechs']['hh'] = {'gnabar': '0.12*normal(1,3e-2)', 'gkbar': '0.036*normal(1,3e-2)', 'gl': '0.0000357*normal(1.2,1e-1)', 'el': -68}  
     SCcell['secs']['soma']['vinit'] = np.random.uniform(-65,-58) # set initial membrane potential
-    netParamsAux.cellParams['SC'] = SCcell
+
+    netParamsAux.cellParams['SC'] =  SCcell
 
     gc.collect()
     return netParamsAux.cellParams
@@ -188,6 +190,7 @@ def SC_Mittal(cwd, cfg):
 
         cellRuleAux['secs']['soma']['geom'].update(paramsAux['geom'])
         netParamsAux2.cellParams['SC_'+str(k)] = copy.deepcopy(cellRuleAux)
+
     gc.collect()
     return netParamsAux2.cellParams
 

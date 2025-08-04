@@ -26,8 +26,8 @@ syns, delays, gms = Inet.NetConnectivity(ChemycalConnProb=cfg.ChemycalConnProb, 
 ###############################################################################
 ## Cell types
 ###############################################################################
-cellParamsPV = defs.PVCell(cfg, gLs, ELs, CapsOrig, ConductWithGapJunct, ReversPotWithGapJunct, CapsMod, gNas, gKv3s, gKv7s, thm1s, thh2s, thn1s, tha1s, SharedParams)
 cellParamsSC = defs.SCell_HH(cfg)
+cellParamsPV = defs.PVCell(cfg, gLs, ELs, CapsOrig, ConductWithGapJunct, ReversPotWithGapJunct, CapsMod, gNas, gKv3s, gKv7s, thm1s, thh2s, thn1s, tha1s, SharedParams)
 cellParamsSC_Mittal = defs.SC_Mittal(cwd, cfg)
 
 netParams.cellParams = cellParamsPV | cellParamsSC_Mittal if cfg.Mittal else cellParamsPV | cellParamsSC # Combine all dictionaries
@@ -54,6 +54,25 @@ if cfg.Clamp==True:
         'sec': 'soma',
         'loc': 0.5,
         'conds': {'cellList': cfg.ClampCells}}
+#------------------------------------------------------------------------------
+# Current inputs (IClamp)
+#------------------------------------------------------------------------------
+if cfg.addIClamp:
+    for key in [k for k in dir(cfg) if k.startswith('IClamp')]:
+        params = getattr(cfg, key, None)
+        [pop,sec,loc,start,dur,amp] = [params[s] for s in ['pop','sec','loc','start','dur','amp']]
+
+        #cfg.analysis['plotTraces']['include'].append((pop,0))  # record that pop
+
+        # add stim source
+        netParams.stimSourceParams[key] = {'type': 'IClamp', 'delay': start, 'dur': dur, 'amp': amp}
+        
+        # connect stim source to target
+        netParams.stimTargetParams[key+'_'+pop] =  {
+            'source': key, 
+            'conds': {'pop': pop},
+            'sec': sec, 
+            'loc': loc}
 
 #------------------------------------------------------------------------------
 # Current inputs (IClamp)

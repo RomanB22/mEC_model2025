@@ -27,3 +27,4 @@ connMatrix, pre, post = sim.analysis.network._plotConnCalculateFromSim(
 )
 sim.allSimData.ConnMatrix = connMatrix
 sim.analyze()
+print('completed simulation...')
