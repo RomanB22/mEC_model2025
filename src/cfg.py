@@ -7,8 +7,8 @@ cfg = specs.SimConfig()       # object of class SimConfig to store simulation co
 ###############################################################################
 ## Simulation parameters
 ###############################################################################
-cfg.ThetaCycles = 12          # Number of theta cycles to simulate
-cfg.Theta2Plot = 2          # Number of theta cycles to plot
+cfg.ThetaCycles = 4          # Number of theta cycles to simulate
+cfg.Theta2Plot = 2           # Number of theta cycles to plot
 cfg.duration = cfg.ThetaCycles*125.          # Duration of the simulation, in ms
 cfg.dt = 1e-2                # Internal integration timestep to use
 cfg.hParams = {'v_init': -80}  
@@ -30,6 +30,7 @@ cfg.saveCellSecs = False
 cfg.saveCellConns = True
 cfg.saveJson = False
 cfg.savePickle = True
+cfg.recordStims = True
 
 #------------------------------------------------------------------------------
 # Current inputs 
@@ -50,7 +51,7 @@ cfg.FactorTau, cfg.FactorKv3, cfg.FactorKv7 = 1, 1, 1   # To modify the activati
 
 # Stellate cells properties 
 cfg.Mittal = False # If True, uses the Mittal et al. model for Stellate cells
-cfg.NSC=4*cfg.NPV # Number of Stellate cells
+cfg.NSC= 4*cfg.NPV # Number of Stellate cells
 cfg.HOMOGENEOUS_SC = False 
 cfg.NumModelsSC = 1 if cfg.HOMOGENEOUS_SC else 157 # Load all the valid SC models
 cfg.SCidx = 0 # Which model to load if using homogeneous population
@@ -62,8 +63,12 @@ if cfg.Mittal==False:
 # Optogenetic drive                                                                                                                                                                                                                                                                                                                            
 cfg.OPTODRIVE=True                                                   
 cfg.g_sin = 7.*1e-3 # Optogenetic conductance for the inhibitory population                  
-cfg.g_sinExc = 3.*1e-3 # Optogenetic conductance for the excitatory population.
-cfg.fsin=8  # Optogenetic sinusoidal stimulation, in Hz
+
+cfg.g_sinExc = 0.*1e-3 # Optogenetic conductance for the excitatory population.
+cfg.fsin=0  # Optogenetic sinusoidal stimulation, in Hz
+cfg.delayStim = 300 
+cfg.durationStim = 100#cfg.duration
+
 # Heterogeneous optogenetic drive for the PV+ cells
 cfg.HETERDRIVE = True
 np.random.seed(cfg.seeds['opto'])  # Fixed seed
@@ -92,14 +97,15 @@ cfg.Weight_E2I = 0.001
 ## Recording and analysis
 ###############################################################################
 # The index of cells are: First 100 are PV, the rest are SC 
-cfg.ClampCells = [1, 20, 130]#[1,20,40,50,90,105,110,120,130,230,250,270,290,300,350]
-recordedCells2 = [1, 11, 120, 130] #[1,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100,105,110,115,120,125,130,135,140,145,150,155,160,165,170,175,180,185,190,195,200,205,210,215,220,225,230,235,240,245,250,255,260,265,270,275,280,285,290,295,300,350,400]
+cfg.ClampCells = [i for i in range(5)] #[1,20,40,50,90,105,110,120,130,230,250,270,290,300,350]
+recordedCells2 = [i for i in range(10)] #[1,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100,105,110,115,120,125,130,135,140,145,150,155,160,165,170,175,180,185,190,195,200,205,210,215,220,225,230,235,240,245,250,255,260,265,270,275,280,285,290,295,300,350,400]
 # recordedCells3 = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,105,110,115,120,125,130,135,140,145,150,155,160,165,170,175,180,185,190,195,200,205,210,215,220,225,230,235,240,245,250,255,260,265,270,275,280,285,290,295,300,350,400]
 for_raster = ['FS', 'SC'] # [5,11,12,15,18,25,29,35,43,50,55,56,57,65,67,68,70,71,72,76,78,81,93] # Cells to include in the raster plot
 offset = 0
 timeRange = [(cfg.ThetaCycles-cfg.Theta2Plot)*125.,cfg.duration+offset]
 cfg.recordCells = recordedCells2
-cfg.recordTraces = {'V_soma':{'sec':'soma','loc':0.5,'var':'v'}}  # Dict with traces to record
+cfg.recordTraces = {'V_soma':{'sec':'soma','loc':0.5,'var':'v'},
+                    'SEClamp': {'sec': 'soma', 'loc': 0.5, 'stim':'Vclamp->Cells', 'var': 'i'}}  # Dict with traces to record
 cfg.analysis['plotRaster'] = {'include': for_raster,'saveFig': True, 'timeRange': timeRange}                  # Plot a raster
 cfg.analysis['plotSpikeHist'] = {'include': ['FS', 'SC'], 'saveFig': True, 'timeRange': timeRange, 'binSize': 1, 'measure': 'rate'}                  # Plot a Spike Histogram
 cfg.analysis['plotTraces'] = {'include': recordedCells2, 'saveFig': True, 'timeRange': timeRange}  # Plot recorded traces for this list of cells
