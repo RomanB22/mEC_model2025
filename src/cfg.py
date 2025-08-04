@@ -7,7 +7,7 @@ cfg = specs.SimConfig()       # object of class SimConfig to store simulation co
 ###############################################################################
 ## Simulation parameters
 ###############################################################################
-cfg.ThetaCycles = 4          # Number of theta cycles to simulate
+cfg.ThetaCycles = 12          # Number of theta cycles to simulate
 cfg.Theta2Plot = 2           # Number of theta cycles to plot
 cfg.duration = cfg.ThetaCycles*125.          # Duration of the simulation, in ms
 cfg.dt = 1e-2                # Internal integration timestep to use
@@ -21,7 +21,7 @@ cfg.recordStep = cfg.dt        # Step size in ms to save data (e.g. V traces, LF
 cfg.seeds = {'conn': 4321, 'stim': 1234, 'loc': 4321, 'cell': 4321, 'brian2': 7894, 'opto': 42} # Random seeds for reproducibility. brian2 seed is for the PV network.
 cfg.saveDataInclude = ['simData', 'simConfig', 'net']  # Which data to save in the output file
 cfg.printRunTime = 0.1 # Print run time every 0.1 seconds
-cfg.recordTime = False  
+cfg.recordTime = True  
 cfg.createNEURONObj = True
 cfg.createPyStruct = True
 cfg.backupCfgFile = None #['cfg.py', 'backupcfg/']
@@ -31,6 +31,8 @@ cfg.saveCellConns = True
 cfg.saveJson = False
 cfg.savePickle = True
 cfg.recordStims = True
+cfg.includeParamsLabel = True
+cfg.PlotWavelet = True
 
 #------------------------------------------------------------------------------
 # Current inputs 
@@ -63,7 +65,6 @@ if cfg.Mittal==False:
 # Optogenetic drive                                                                                                                                                                                                                                                                                                                            
 cfg.OPTODRIVE=True                                                   
 cfg.g_sin = 7.*1e-3 # Optogenetic conductance for the inhibitory population                  
-
 cfg.g_sinExc = 0.*1e-3 # Optogenetic conductance for the excitatory population.
 cfg.fsin=0  # Optogenetic sinusoidal stimulation, in Hz
 cfg.delayStim = 300 

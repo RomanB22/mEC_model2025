@@ -7,8 +7,8 @@ cfg = specs.SimConfig()       # object of class SimConfig to store simulation co
 ###############################################################################
 ## Simulation parameters
 ###############################################################################
-cfg.ThetaCycles = 12          # Number of theta cycles to simulate
-cfg.Theta2Plot = 4          # Number of theta cycles to plot
+cfg.ThetaCycles = 4          # Number of theta cycles to simulate
+cfg.Theta2Plot = 2          # Number of theta cycles to plot
 cfg.duration = cfg.ThetaCycles*125.          # Duration of the simulation, in ms
 cfg.dt = 1e-2                # Internal integration timestep to use
 cfg.hParams = {'v_init': -80}  
@@ -21,7 +21,7 @@ cfg.recordStep = cfg.dt        # Step size in ms to save data (e.g. V traces, LF
 cfg.seeds = {'conn': 4321, 'stim': 1234, 'loc': 4321, 'cell': 4321, 'brian2': 7894, 'opto': 42} # Random seeds for reproducibility. brian2 seed is for the PV network.
 cfg.saveDataInclude = ['simData', 'simConfig', 'net']  # Which data to save in the output file
 cfg.printRunTime = 0.1 # Print run time every 0.1 seconds
-cfg.recordTime = False  
+cfg.recordTime = True  
 cfg.createNEURONObj = True
 cfg.createPyStruct = True
 cfg.backupCfgFile = None #['cfg.py', 'backupcfg/']
@@ -31,6 +31,8 @@ cfg.saveCellConns = True
 cfg.saveJson = False
 cfg.savePickle = True
 cfg.recordStims = True
+cfg.includeParamsLabel = True
+cfg.PlotWavelet = True
 
 #------------------------------------------------------------------------------
 # Current inputs 
@@ -81,7 +83,7 @@ cfg.NumModelsPV = 1 if (cfg.HOMOGENEOUS_PV and not cfg.GAP) else cfg.NPV # With 
 cfg.FactorTau, cfg.FactorKv3, cfg.FactorKv7 = 1, 1, 1   # To modify the activation curves for ion channels and the membrane time constant
 
 # Stellate cells properties 
-cfg.Mittal = True # If True, uses the Mittal et al. model for Stellate cells
+cfg.Mittal = False # If True, uses the Mittal et al. model for Stellate cells
 cfg.NSC = int(cfg.SCdensity * volume)  # Number of Stellate cells. NOT USED HERE
 cfg.HOMOGENEOUS_SC = False 
 cfg.NumModelsSC = 1 if cfg.HOMOGENEOUS_SC else 157 # Load all the valid SC models
@@ -94,7 +96,7 @@ if cfg.Mittal==False:
 # Optogenetic drive                                                                                                                                                                                                                                                                                                                            
 cfg.OPTODRIVE=True                                                   
 cfg.g_sin = 4.*1e-3 # Optogenetic conductance for the inhibitory population                  
-cfg.g_sinExc = 6.*1e-3 # Optogenetic conductance for the excitatory population.
+cfg.g_sinExc = 0.*1e-3 # Optogenetic conductance for the excitatory population.
 cfg.fsin=8  # Optogenetic sinusoidal stimulation, in Hz
 cfg.delayStim = 0 
 cfg.durationStim = cfg.duration
@@ -116,8 +118,8 @@ cfg.Vclamp = 0 # Voltage at which clamp, if cfg.Clamp==True
 ## Recording and analysis
 ###############################################################################
 # The index of cells are: First 100 are PV, the rest are SC 
-cfg.ClampCells = [0, 50, 321, 400]
-recordedCells2 = [1, 11, 120, 130, 500] 
+cfg.ClampCells = [i for i in range(5)]
+recordedCells2 = [i for i in range(10)]
 indicesCell = [i for i in range(2)]
 recordedCells3 = [(pop, i) for i in indicesCell for pop in ['FS', 'SC']] 
 for_raster = ['FS', 'SC'] 

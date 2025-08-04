@@ -250,3 +250,41 @@ def GapJunctSpatialConnectivity(sim, netParams, gLmin=2., ggapHigh=1.3, full_dis
     }
 
   return None
+
+def CalculateAndPlotWaveletClamp(cfg, sim, trange = [200, 500], frange=[50, 300]):
+    # Import simulation and plot code to create & visualize data
+    from neurodsp.plts import plot_timefrequency
+    # Import function for Morlet Wavelets
+    from neurodsp.timefrequency.wavelets import compute_wavelet_transform
+    from scipy import signal
+    import matplotlib.pyplot as plt
+
+    plt.set_cmap('magma')
+
+    b, a = signal.butter(3, frange, fs=1/(cfg.dt*1e-3), btype='band')
+    factor = 1000 # To change from nA to pA
+    freqs = np.arange(frange[0], frange[1]+1, 1)
+
+    for clamped in sim.allSimData.SEClamp.keys():
+        index = np.where(np.logical_and(np.array(sim.allSimData.t)>=trange[0], np.array(sim.allSimData.t)<=trange[1]))[0].tolist()
+        t = np.array(sim.allSimData.t)[index]
+        offsetCurrent = factor*(np.array(sim.allSimData.SEClamp[clamped])[index] - np.array(sim.allSimData.SEClamp[clamped])[index][0])
+        filteredCurrent = signal.filtfilt(b, a, offsetCurrent) #Here is where we are using the band pass filter and using the signal to get gamma waveform
+
+        mwt = compute_wavelet_transform(filteredCurrent, fs=1/(cfg.dt*1e-3), freqs=freqs, n_cycles=10)
+        z = np.abs(2*mwt)**2
+        maxPowerAvg = np.max(np.max(z))
+        print("Plotting wavelet transform for %s..." % str(clamped))
+        
+        fig = plt.figure(constrained_layout=False)
+        axs = fig.subplot_mosaic([['TopLeft', 'Right'],['BottomLeft', 'Right']],
+                                gridspec_kw={'width_ratios':[2, 1]})
+        # axs['TopLeft'].set_title('Plot Top Left')
+        axs['TopLeft'].plot(t, offsetCurrent, 'b')
+        # axs['BottomLeft'].set_title('Plot Bottom Left')
+        axs['BottomLeft'].plot(t, filteredCurrent, 'r')
+        # axs['Right'].set_title('Plot on the Right')
+        plot_timefrequency(t, freqs, mwt, ax=axs['Right'], colorbar=True)
+
+        plt.savefig(cfg.filename + "_Wavelet_" + str(clamped) + ".png")
+        plt.clf()

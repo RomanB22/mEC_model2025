@@ -4,6 +4,7 @@ init.py
 Starting script to run NetPyNE-based mEC model.
 """
 import numpy as np
+import src.defs as defs
 from netpyne import sim
 
 ###############################################################################
@@ -27,4 +28,8 @@ connMatrix, pre, post = sim.analysis.network._plotConnCalculateFromSim(
 )
 sim.allSimData.ConnMatrix = connMatrix
 sim.analyze()
+if cfg.PlotWavelet:
+    trange = [cfg.delayStim-100, cfg.delayStim+cfg.durationStim+100] # Change for theta drive
+    defs.CalculateAndPlotWaveletClamp(cfg, sim, trange = trange, frange=[50, 300])
+
 print('completed simulation...')

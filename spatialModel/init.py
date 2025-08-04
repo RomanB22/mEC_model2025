@@ -39,3 +39,9 @@ connMatrix, pre, post = sim.analysis.network._plotConnCalculateFromSim(
 sim.allSimData.ConnMatrix = connMatrix
 sim.saveData()                    			# save params, cell info and sim output to file (pickle,mat,txt,etc)#
 sim.analysis.plotData()         			# plot spike raster etc
+
+if cfg.PlotWavelet:
+    trange = [cfg.delayStim-100, cfg.delayStim+cfg.durationStim+100] # Change for theta drive
+    defs.CalculateAndPlotWaveletClamp(cfg, sim, trange = trange, frange=[50, 300])
+
+print('completed simulation...')

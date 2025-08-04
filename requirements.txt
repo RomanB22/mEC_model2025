@@ -3,3 +3,4 @@ scipy
 brian2
 neuron
 netpyne
+neurodsp

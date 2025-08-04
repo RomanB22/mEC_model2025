@@ -48,6 +48,7 @@ Some new parameters added and changes to the optogenetic stimulus are:
 `cfg.durationStim` which allow to give a delay to the stimulation and to finish it early too
 2. Also, when `f=0` in the optogenetic drive, the current is a constant of value `g_sin` or `g_sinExc`
 3. Now the current injected in the voltage-clamped neurons is being recorded and plotted. Current is in nA
+4. The flag `cfg.PlotWavelet` allows to plot the injected current for this cells, to filter the signal and to plot its wavelet transform. It makes simulations end slower, so use it if you need it.
 
 ### Run Batch Simulations (Experimental)
 

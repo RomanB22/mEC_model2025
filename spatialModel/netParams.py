@@ -52,7 +52,7 @@ else:
 ## VoltageClamp
 ###############################################################################
 if cfg.Clamp==True:
-	netParams.stimSourceParams['Vclamp'] = {'type': 'SEClamp', 'dur1': 1e9, 'amp1': cfg.Vclamp, 'rs': 1e-5}
+	netParams.stimSourceParams['Vclamp'] = {'type': 'SEClamp', 'dur1': 1e9, 'amp1': cfg.Vclamp, 'rs': 1e-4}
     # Stimulation mapping parameters
 	netParams.stimTargetParams['Vclamp->Cells'] = {
         'source': 'Vclamp',
