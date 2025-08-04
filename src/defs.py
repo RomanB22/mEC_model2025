@@ -41,7 +41,7 @@ def PVCell(cfg, gLs, ELs, CapsOrig, ConductWithGapJunct, ReversPotWithGapJunct, 
         else:
             cellRule['secs']['soma'] = {'geom': {}, 'mechs': {}, 'pointps': {}}
             drive = cfg.g_sin if cfg.HETERDRIVE==False else cfg.drives[k]
-            cellRule['secs']['soma']['pointps']['optodrive'] = {'mod' : 'optodrive', 'gsin': drive, 'Ese': 0 , 'f': cfg.fsin}
+            cellRule['secs']['soma']['pointps']['optodrive'] = {'mod' : 'optodrive', 'gsin': drive, 'Ese': 0, 'f': cfg.fsin, 'del': cfg.delayStim, 'dur': cfg.durationStim}
         if cfg.NOISE==True:
             cellRule['secs']['soma']['pointps']['InVivoNoise'] = {'mod' : 'Gfluct','g_e0': cfg.MeanENoise, 'g_i0': cfg.MeanINoise, 'std_e': cfg.StdENoise, 'std_i': cfg.StdINoise}
         if cfg.GAP==True:
@@ -69,7 +69,7 @@ def SCell_HH(cfg):
         SCcell['secs']['soma'] = {'geom': {}, 'mechs': {}} 
     else:
         SCcell['secs']['soma'] = {'geom': {}, 'mechs': {}, 'pointps': {}}
-        SCcell['secs']['soma']['pointps']['optodrive'] = {'mod' : 'optodrive', 'gsin': cfg.g_sinExc, 'Ese': 0, 'f': cfg.fsin }
+        SCcell['secs']['soma']['pointps']['optodrive'] = {'mod' : 'optodrive', 'gsin': cfg.g_sinExc, 'Ese': 0, 'f': cfg.fsin, 'del': cfg.delayStim, 'dur': cfg.durationStim}
     if cfg.NOISE==True:
         SCcell['secs']['soma']['pointps']['InVivoNoise'] = {'mod' : 'Gfluct', 'g_e0': cfg.MeanENoise, 'g_i0': cfg.MeanINoise, 'std_e': cfg.StdENoise, 'std_i': cfg.StdINoise}
     SCcell['secs']['soma']['geom'] = {'diam': 18.2, 'L': 18.2, 'Ra': 150, 'cm':1}                           # soma geometry
@@ -172,7 +172,7 @@ def SC_Mittal(cwd, cfg):
 
         if cfg.OPTODRIVE==True:
             cellRuleAux['secs']['soma']['pointps'] = {}
-            cellRuleAux['secs']['soma']['pointps']['optodrive'] = {'mod' : 'optodrive', 'gsin': cfg.g_sinExc, 'Ese': 0, 'f': cfg.fsin }
+            cellRuleAux['secs']['soma']['pointps']['optodrive'] = {'mod' : 'optodrive', 'gsin': cfg.g_sinExc, 'Ese': 0, 'f': cfg.fsin, 'del': cfg.delayStim, 'dur': cfg.durationStim}
 
         if cfg.NOISE==True:
             cellRuleAux['secs']['soma']['pointps']['InVivoNoise'] = {'mod' : 'Gfluct', 'g_e0': cfg.MeanENoise, 'g_i0': cfg.MeanINoise, 'std_e': cfg.StdENoise, 'std_i': cfg.StdINoise}

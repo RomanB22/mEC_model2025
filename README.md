@@ -42,6 +42,12 @@ All simulation parameters are defined in the `spatialModel/cfg.py` file. To run 
 ```bash
 python -u spatialModel/init.py
 ```
+### Updates
+Some new parameters added and changes to the optogenetic stimulus are:
+1. Optogenetic drive now allows two new parameters (in the same fashion as `IClamp`): `cfg.delayStim` and 
+`cfg.durationStim` which allow to give a delay to the stimulation and to finish it early too
+2. Also, when `f=0` in the optogenetic drive, the current is a constant of value `g_sin` or `g_sinExc`
+3. Now the current injected in the voltage-clamped neurons is being recorded and plotted. Current is in nA
 
 ### Run Batch Simulations (Experimental)
 

@@ -8,7 +8,7 @@ cfg = specs.SimConfig()       # object of class SimConfig to store simulation co
 ## Simulation parameters
 ###############################################################################
 cfg.ThetaCycles = 12          # Number of theta cycles to simulate
-cfg.Theta2Plot = 2          # Number of theta cycles to plot
+cfg.Theta2Plot = 4          # Number of theta cycles to plot
 cfg.duration = cfg.ThetaCycles*125.          # Duration of the simulation, in ms
 cfg.dt = 1e-2                # Internal integration timestep to use
 cfg.hParams = {'v_init': -80}  
@@ -30,6 +30,7 @@ cfg.saveCellSecs = False
 cfg.saveCellConns = True
 cfg.saveJson = False
 cfg.savePickle = True
+cfg.recordStims = True
 
 #------------------------------------------------------------------------------
 # Current inputs 
@@ -95,6 +96,9 @@ cfg.OPTODRIVE=True
 cfg.g_sin = 4.*1e-3 # Optogenetic conductance for the inhibitory population                  
 cfg.g_sinExc = 6.*1e-3 # Optogenetic conductance for the excitatory population.
 cfg.fsin=8  # Optogenetic sinusoidal stimulation, in Hz
+cfg.delayStim = 0 
+cfg.durationStim = cfg.duration
+
 # Heterogeneous optogenetic drive for the PV+ cells
 cfg.HETERDRIVE = True
 np.random.seed(cfg.seeds['opto'])  # Fixed seed
@@ -124,7 +128,8 @@ for2Ddistribution = [('FS', i) for i in indicesFS] # Cells to include in the 2D 
 offset = 0
 timeRange = [(cfg.ThetaCycles-cfg.Theta2Plot)*125.,cfg.duration+offset]
 cfg.recordCells = recordedCells2
-cfg.recordTraces = {'V_soma':{'sec':'soma','loc':0.5,'var':'v'}}  # Dict with traces to record
+cfg.recordTraces = {'V_soma':{'sec':'soma','loc':0.5,'var':'v'},
+                    'SEClamp': {'sec': 'soma', 'loc': 0.5, 'stim':'Vclamp->Cells', 'var': 'i'}} # Dict with traces to record
 cfg.analysis['plotRaster'] = {'include': for_raster,'saveFig': True, 'timeRange': timeRange}                  # Plot a raster
 cfg.analysis['plotSpikeHist'] = {'include': ['FS', 'SC'], 'saveFig': True, 'timeRange': timeRange, 'binSize': 1, 'measure': 'rate'}                  # Plot a Spike Histogram
 cfg.analysis['plotTraces'] = {'include': recordedCells3, 'saveFig': True, 'timeRange': timeRange}  # Plot recorded traces for this list of cells
