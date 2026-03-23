@@ -229,7 +229,9 @@ meangms=0.,
 sigmagms=1.,
 randomseed = 7894 # FIX IT FOR REPRODUCIBILITY
 ):
-
+  # Keep the historical behavior: this function advances the current NumPy RNG
+  # stream instead of reseeding, so it stays equivalent to NetworkParams when
+  # called after ViaModelParams.
   syns = gen_syns_samepop(NumNeurons,ChemycalConnProb)
   Nsyns = len(syns[0])  
   delays = gen_unif_ds(Nsyns,dmin=delaymin,dmax=delaymax)[0]
@@ -263,7 +265,6 @@ randomseed = 7894 # FIX IT FOR REPRODUCIBILITY
 # assert set(syns) == set(syns2), f"Assertion failed: gLs != gLs2 as sets\n  set(gLs): {set(syns)}\n  set(gLs2): {set(syns2)}"
 # assert set(synsgj) == set(synsgj2), f"Assertion failed: gLs != gLs2 as sets\n  set(gLs): {set(gLs)}\n  set(gLs2): {set(gLs2)}"
 # assert set(ggs) == set(ggs2), f"Assertion failed: gLs != gLs2 as sets\n  set(gLs): {set(gLs)}\n  set(gLs2): {set(gLs2)}"
-
 
 
 
